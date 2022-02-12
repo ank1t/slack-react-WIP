@@ -4,6 +4,7 @@
   max-width: 260px;
   border-top: 1px #49274b solid;
   align-items: center;
+  flex: 0.3;
 }
 
 .sidebar__info {
