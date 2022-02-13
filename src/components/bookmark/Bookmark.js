@@ -7,10 +7,24 @@ function Bookmark({ url }) {
     window.open(url, "_blank").focus();
   };
 
+  const handleClick = (e) => {
+    if (e.type === "click") {
+      openUrl();
+    } else if (e.type === "contextmenu") {
+      e.preventDefault();
+      console.log("Right click");
+    }
+  };
+
   return (
-    <div className="bookmark" onClick={openUrl}>
+    <div
+      className="bookmark tooltip"
+      onClick={handleClick}
+      onContextMenu={handleClick}
+    >
       <img className="bookmarkImg" src={favIconUrl} />
       <span>{url}</span>
+      <span className="tooltiptext">{url}</span>
     </div>
   );
 }

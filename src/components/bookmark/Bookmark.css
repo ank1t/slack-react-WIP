@@ -1,7 +1,10 @@
+@import url("../../common/base.css");
+
 .bookmark {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 2px;
 }
 
 .bookmark > .bookmarkImg {
