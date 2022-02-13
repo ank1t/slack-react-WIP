@@ -3,7 +3,7 @@
 }
 
 .chat__header {
-  padding: 10px 20px;
+  padding: 10px 10px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
@@ -17,19 +17,21 @@
 
 .chat__channel {
   display: flex;
-  margin-right: 20px;
+  padding: 6px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
-.chat__channel :hover {
-  background-color: antiquewhite;
+.chat__channel:hover {
+  background-color: #f8f8f8;
+  border-radius: 5px;
 }
 .chat__channelName > strong {
   margin-right: 5px;
 }
 
 .chat__channelName {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -40,6 +42,14 @@
 
 .chat__channelTopicName {
   color: gray;
+  font-size: 12px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.chat__channelTopicName:hover {
+  background-color: #f8f8f8;
+  border-radius: 5px;
 }
 
 .chat__headerRight {
@@ -49,6 +59,8 @@
   border: 1px solid lightgray;
   padding: 2px;
   border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 .chat__headerRight > span {
@@ -56,21 +68,74 @@
   font-weight: 500;
   color: #1c1c1c;
   margin-right: 5px;
+  font-size: 14px;
 }
 .chat__header_userImg {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   border-radius: 5px;
 }
 
 .chat__subheader {
+  display: flex;
   border-bottom: 1px solid lightgray;
+  box-shadow: 0 3px 1px -1px #efefef;
 }
 
 .chat_addbookmark {
-  padding: 10px;
+  margin: 5px 0px;
+  margin-left: 10px;
+  padding: 6px;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.chat_addbookmark :hover {
-  background-color: lightgray;
+.chat_addbookmark > span {
+  color: gray;
+  font-size: 12px;
+}
+
+.chat_addbookmark:hover {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+/* Tool tips */
+.tooltip {
+  position: relative;
+}
+
+.tooltiptext {
+  font-size: 13px;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 8px;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+  display: flex;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  display: inline-block;
 }

@@ -32,9 +32,9 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__info">
-          <h2>Company name</h2>
+          <h2>ABC Company</h2>
           <h3>
-            <span>⚫</span> Ankit Singh
+            <span>•</span> Ankit Singh
           </h3>
         </div>
         <CreateIcon />

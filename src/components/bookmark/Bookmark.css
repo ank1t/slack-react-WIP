@@ -1,0 +1,22 @@
+.bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookmark > .bookmarkImg {
+  height: 15px;
+  width: 15px;
+  margin-right: 8px;
+}
+
+.bookmark > span {
+  color: gray;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bookmark:hover {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
