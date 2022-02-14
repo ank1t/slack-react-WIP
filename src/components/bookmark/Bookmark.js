@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Bookmark.css";
 
-function Bookmark({ url }) {
+function Bookmark({ url, handleRightClick }) {
   const favIconUrl = `${url}/favicon.ico`;
   const openUrl = () => {
     window.open(url, "_blank").focus();
@@ -12,7 +12,7 @@ function Bookmark({ url }) {
       openUrl();
     } else if (e.type === "contextmenu") {
       e.preventDefault();
-      console.log("Right click");
+      handleRightClick(e.pageX, e.pageY);
     }
   };
 
@@ -22,7 +22,7 @@ function Bookmark({ url }) {
       onClick={handleClick}
       onContextMenu={handleClick}
     >
-      <img className="bookmarkImg" src={favIconUrl} />
+      <img className="bookmarkImg" src={favIconUrl} alt="" />
       <span>{url}</span>
       <span className="tooltiptext">{url}</span>
     </div>
