@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Chat.css";
 import db from "../../firebase";
@@ -11,6 +11,8 @@ function Chat() {
   const [bookmarkPopupStyle, setBookmarkPopupStyle] = useState({
     display: "none",
   });
+  const [popupVisible, setPopupVisible] = useState(false);
+  var prevX, prevY;
 
   const [bookmarks, setBookmarks] = useState([
     "https://google.com",
@@ -18,25 +20,48 @@ function Chat() {
     "https://www.facebook.com/",
   ]);
 
-  const handleRightClick = (positionX, positionY) => {
-    if (positionX && positionY) {
-      setBookmarkPopupStyle({
-        display: positionX && positionY ? "block" : "none",
-        position: "absolute",
-        top: positionY,
-        left: positionX,
-      });
-    }
+  const hideBookmarkContextMenu = () => {
+    setBookmarkPopupStyle({
+      display: "none",
+    });
+    setPopupVisible(false);
   };
 
-  const handleClick = () => {
-    //   if (e.type === "click") {
-    //     // A left click anywhere in the chat window closes the popup.
-    //     setPopupCoords([0, 0]);
-    //   } else if (e.type === "contextmenu") {
-    //     e.preventDefault();
-    //     handleRightClick(e.pageX, e.pageY);
-    //   }
+  /*
+    first right click -> show popup, hide tooltip
+    second right click at the same place -> show system right menu
+
+    first left click -> closes the context menu.
+    left click at the same place where the popup menu is open, does nothing.
+  */
+  const handleRightClick = useCallback((event, fromBookmark) => {
+    console.log(event, fromBookmark);
+    if (!fromBookmark) {
+      hideBookmarkContextMenu();
+    } else if (fromBookmark && !popupVisible) {
+      setBookmarkPopupStyle({
+        display: "block",
+        position: "absolute",
+        top: event.pageY,
+        left: event.pageX,
+      });
+      setPopupVisible(true);
+      event.preventDefault();
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    document.addEventListener("contextmenu", handleRightClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("contextmenu", handleRightClick);
+    };
+  }, []);
+
+  const handleClick = (e) => {
+    hideBookmarkContextMenu();
   };
 
   useEffect(() => {
@@ -48,7 +73,7 @@ function Chat() {
   }, [roomId]);
 
   return (
-    <div className="chat" onClick={handleClick} onContextMenu={handleClick}>
+    <div className="chat">
       <div className="chat__header">
         <div className="chat__headerLeft">
           <div className="chat__channel tooltip">
@@ -80,6 +105,7 @@ function Chat() {
               url={bookmark}
               key={index}
               handleRightClick={handleRightClick}
+              popupVisible={popupVisible}
             />
           </div>
         ))}

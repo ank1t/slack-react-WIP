@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Bookmark.css";
 
-function Bookmark({ url, handleRightClick }) {
+function Bookmark({ url, handleRightClick, popupVisible }) {
   const favIconUrl = `${url}/favicon.ico`;
   const openUrl = () => {
     window.open(url, "_blank").focus();
   };
 
-  const handleClick = (e) => {
-    if (e.type === "click") {
+  const handleClick = (event) => {
+    if (event.type === "click") {
       openUrl();
-    } else if (e.type === "contextmenu") {
-      e.preventDefault();
-      handleRightClick(e.pageX, e.pageY);
+    } else if (event.type === "contextmenu") {
+      handleRightClick(event, true);
     }
+    event.stopPropagation();
   };
 
   return (
